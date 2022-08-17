@@ -84,13 +84,13 @@ class FavouriteController {
       const transporter = nodemailer.createTransport({
         service: 'hotmail',
         auth: {
-          user: 'miraclee99@hotmail.com',
-          pass: 'Somnus99$',
+          user: 'andrianaji18@hotmail.com',
+          pass: process.env.PASS_EMAIL,
         },
       });
 
       const options = {
-        from: 'miraclee99@hotmail.com',
+        from: 'andrianaji18@hotmail.com',
         to: req.user.email,
         subject: `Hello Fans!`,
         text: `Match baru telah update!, ini hasilnya :
