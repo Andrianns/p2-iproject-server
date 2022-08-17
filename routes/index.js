@@ -7,6 +7,8 @@ router.use('/user', userRouter);
 router.get('/standings');
 router.get('/ucl');
 router.get('/teams', TeamController.readTeamPL);
+router.get('/top-score-PL', TeamController.readTopScorePL);
+router.get('/standings-PL', TeamController.readStandingsPL);
 //authentication
 router.use(authentication);
 router.post('/teamsFavourite/:id');
