@@ -70,7 +70,7 @@ class UserController {
       const payload = ticket.getPayload();
       // console.log(payload);
 
-      const [customer, created] = await Customer.findOrCreate({
+      const [user, created] = await User.findOrCreate({
         where: {
           email: payload.email,
         },
@@ -84,10 +84,10 @@ class UserController {
         hooks: false,
       });
       const access_token = createToken({
-        id: customer.id,
-        email: customer.email,
+        id: user.id,
+        email: user.email,
       });
-      res.status(200).json({ access_token, email: customer.email });
+      res.status(200).json({ access_token, email: user.email });
     } catch (error) {
       res.status(500).json({ message: 'internal server error' });
     }
