@@ -94,10 +94,13 @@ class FavouriteController {
         to: req.user.email,
         subject: `Hello Fans!`,
         text: `Match baru telah update!, ini hasilnya :
-        ${matchesTeam}
+        
+        ${matchesTeam[0].homeTeamLogo} ${matchesTeam[0].awayTeamLogo}
+        ${matchesTeam[0].homeTeam} ${matchesTeam[0].awayTeam}
+        ${matchesTeam[0].scoreHomeTeam} ${matchesTeam[0].scoreAwayTeam}
         `,
       };
-
+      console.log(matchesTeam[0].homeTeam);
       transporter.sendMail(options, function (err, info) {
         if (err) {
           console.log(err);

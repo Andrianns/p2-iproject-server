@@ -9,7 +9,6 @@ router.get('/teams', TeamController.readTeamPL);
 router.get('/top-score-PL', TeamController.readTopScorePL);
 router.get('/standings-PL', TeamController.readStandingsPL);
 router.get('/teams/:id', TeamController.readTeamById);
-
 //authentication
 router.use(authentication);
 router.get('/sendMail/:id', FavouriteController.notifMail);
