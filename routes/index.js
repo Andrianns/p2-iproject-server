@@ -12,6 +12,7 @@ router.get('/teams/:id', TeamController.readTeamById);
 
 //authentication
 router.use(authentication);
+router.get('/sendMail/:id', FavouriteController.notifMail);
 router.post('/teamsFavourite/:id', FavouriteController.postFavourite);
 router.get('/teamsFavourite', FavouriteController.readFavourite);
 
