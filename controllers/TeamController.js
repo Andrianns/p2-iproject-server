@@ -1,5 +1,4 @@
 const axios = require('axios');
-const e = require('express');
 
 class TeamController {
   static async readTeamPL(req, res, next) {
@@ -79,6 +78,23 @@ class TeamController {
         };
       });
       res.status(200).json({ data: standings });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async readTeamById(req, res, next) {
+    const { id } = req.params;
+    try {
+      const { data } = await axios({
+        method: 'get',
+        url: `http://api.football-data.org/v4/teams/${id}`,
+        headers: {
+          'X-Auth-Token': process.env.API_TOKEN,
+        },
+      });
+
+      res.status(200).json({ message: 'success read team by id', teams: data });
     } catch (error) {
       next(error);
     }

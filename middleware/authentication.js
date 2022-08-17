@@ -8,15 +8,18 @@ const authentication = async (req, res, next) => {
       throw { name: 'NoToken' };
     }
     let payload = verifyToken(access_token);
-    let user = User.findByPk(payload.id);
+    // console.log(payload);
+    let user = await User.findByPk(payload.id);
 
     if (!user) {
-      throw { name: 'Unauthorized' };
+      throw { name: 'Forbidden' };
     }
     req.user = {
       id: user.id,
       username: user.username,
     };
+
+    // console.log(req.user);
     next();
   } catch (error) {
     next(error);
