@@ -80,7 +80,7 @@ class UserController {
           password: 'googleng',
           role: 'Customer',
           phoneNumber: '123456',
-          username: 'googleg',
+          username: 'Google User',
         },
         hooks: false,
       });
