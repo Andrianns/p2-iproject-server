@@ -1,7 +1,7 @@
 const { compareHash } = require('../helper/bcrypt');
 const { createToken } = require('../helper/jwt');
 const { User } = require('../models');
-
+const { OAuth2Client } = require('google-auth-library');
 class UserController {
   static async register(req, res, next) {
     const { username, email, password, phoneNumber, role } = req.body;
@@ -84,16 +84,13 @@ class UserController {
         },
         hooks: false,
       });
-      console.log(user);
+
       const access_token = createToken({
         id: user.id,
         email: user.email,
-        username: user.username,
       });
-      console.log(access_token);
-      res
-        .status(200)
-        .json({ access_token, email: user.email, username: user.username });
+
+      res.status(200).json({ access_token, email: user.email });
     } catch (error) {
       res.status(500).json({ message: 'internal server error' });
     }
