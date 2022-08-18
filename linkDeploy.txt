@@ -5,3 +5,4 @@ API 1: https://www.football-data.org/
 API 2: nodemailer
 
 untuk buka halaman Standings harus ke topscore dlu balik lagi ke Standings
+google sign in harus di refresh dulu halamannya,
