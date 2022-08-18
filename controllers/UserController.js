@@ -80,15 +80,20 @@ class UserController {
           password: 'googleng',
           role: 'Customer',
           phoneNumber: '123456',
-          address: 'googleng',
+          username: 'googleg',
         },
         hooks: false,
       });
+      console.log(user);
       const access_token = createToken({
         id: user.id,
         email: user.email,
+        username: user.username,
       });
-      res.status(200).json({ access_token, email: user.email });
+      console.log(access_token);
+      res
+        .status(200)
+        .json({ access_token, email: user.email, username: user.username });
     } catch (error) {
       res.status(500).json({ message: 'internal server error' });
     }

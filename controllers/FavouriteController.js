@@ -21,13 +21,13 @@ class FavouriteController {
       // console.log(data, id, name, logo, stadium, '<<<AXIOS');
       const UserId = +req.user.id;
 
-      const validate = Favourite.findOne({
+      const validate = await Favourite.findOne({
         where: {
           UserId: UserId,
           TeamId: TeamId,
         },
       });
-
+      console.log(validate, '<<VALIDATE');
       const team = await Team.findByPk(TeamId);
       console.log(team, 'ini team<<');
       if (!team) {
@@ -39,11 +39,13 @@ class FavouriteController {
         });
       }
 
-      await Favourite.create({
-        UserId,
-        TeamId,
-        power: 0,
-      });
+      if (!validate) {
+        await Favourite.create({
+          UserId,
+          TeamId,
+          power: 0,
+        });
+      }
 
       res.status(201).json({ message: 'success add to favourite' });
     } catch (error) {
