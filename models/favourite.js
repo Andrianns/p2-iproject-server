@@ -30,9 +30,6 @@ module.exports = (sequelize, DataTypes) => {
       TeamId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        unique: {
-          msg: 'This team is already in your favourites',
-        },
         validate: {
           notNull: {
             msg: 'Team Id cannot be empty.',

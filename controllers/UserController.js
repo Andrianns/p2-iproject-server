@@ -49,10 +49,11 @@ class UserController {
         username: findUser.username,
       };
       const access_token = createToken(payload);
-
+      let username = findUser.username;
       res.status(200).json({
         access_token: access_token,
         email,
+        username,
       });
     } catch (error) {
       console.log(error, '<<<<<from controller error');

@@ -14,35 +14,54 @@ class FavouriteController {
         },
       });
 
-      // console.log(data);
       const id = data.id;
       const name = data.name;
       const logo = data.crest;
       const stadium = data.venue;
-      await Team.create({ id, name, logo, stadium });
-
+      // console.log(data, id, name, logo, stadium, '<<<AXIOS');
       const UserId = +req.user.id;
-      const data1 = await Favourite.create({
+
+      const validate = Favourite.findOne({
+        where: {
+          UserId: UserId,
+          TeamId: TeamId,
+        },
+      });
+
+      const team = await Team.findByPk(TeamId);
+      console.log(team, 'ini team<<');
+      if (!team) {
+        await Team.create({
+          id: id,
+          name: name,
+          logo: logo,
+          stadium: stadium,
+        });
+      }
+
+      await Favourite.create({
         UserId,
         TeamId,
         power: 0,
       });
 
-      res
-        .status(201)
-        .json({ message: 'success add to favourite', favourite: data1 });
+      res.status(201).json({ message: 'success add to favourite' });
     } catch (error) {
       next(error);
     }
   }
 
   static async readFavourite(req, res, next) {
+    const UserId = req.user.id;
     try {
       const data = await Favourite.findAll({
         attributes: {
           exclude: ['createdAt', 'updatedAt'],
         },
         include: Team,
+        where: {
+          UserId: UserId,
+        },
         order: [['power', 'DESC']],
       });
 
@@ -101,17 +120,37 @@ class FavouriteController {
         `,
       };
       console.log(matchesTeam[0].homeTeam);
-      transporter.sendMail(options, function (err, info) {
-        if (err) {
-          console.log(err);
-          return;
-        } else {
-          console.log('sent: ' + info.response);
-        }
-      });
+      // transporter.sendMail(options, function (err, info) {
+      //   if (err) {
+      //     console.log(err);
+      //     return;
+      //   } else {
+      //     console.log('sent: ' + info.response);
+      //   }
+      // });
       res
         .status(200)
         .json({ message: 'success read matches', match: matchesTeam });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async destroyFav(req, res, next) {
+    try {
+      const id = req.params.id;
+      const data = await Favourite.destroy({
+        where: {
+          id: id,
+        },
+      });
+
+      if (!data || id <= 0) {
+        throw { name: 'NotFound' };
+      }
+      res
+        .status(200)
+        .json({ message: 'success delete favourite where id ' + id });
     } catch (error) {
       next(error);
     }

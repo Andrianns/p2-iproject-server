@@ -14,9 +14,15 @@ module.exports = (sequelize, DataTypes) => {
   }
   Team.init(
     {
-      name: DataTypes.STRING,
-      logo: DataTypes.STRING,
-      stadium: DataTypes.STRING,
+      name: {
+        type: DataTypes.STRING,
+      },
+      logo: {
+        type: DataTypes.STRING,
+      },
+      stadium: {
+        type: DataTypes.STRING,
+      },
     },
     {
       sequelize,

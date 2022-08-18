@@ -33,6 +33,10 @@ function errorHandler(error, req, res, next) {
     res.status(404).json({
       message: 'integer required',
     });
+  } else if (error.name === 'unique') {
+    res.status(400).json({
+      message: 'You have chosen this team ',
+    });
   } else {
     res.status(500).json({
       message: 'Internal server error',
