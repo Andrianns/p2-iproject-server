@@ -88,9 +88,12 @@ class UserController {
       const access_token = createToken({
         id: user.id,
         email: user.email,
+        username: user.username,
       });
 
-      res.status(200).json({ access_token, email: user.email });
+      res
+        .status(200)
+        .json({ access_token, email: user.email, username: user.username });
     } catch (error) {
       res.status(500).json({ message: 'internal server error' });
     }
