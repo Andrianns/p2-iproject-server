@@ -122,14 +122,14 @@ class FavouriteController {
         `,
       };
       console.log(matchesTeam[0].homeTeam);
-      // transporter.sendMail(options, function (err, info) {
-      //   if (err) {
-      //     console.log(err);
-      //     return;
-      //   } else {
-      //     console.log('sent: ' + info.response);
-      //   }
-      // });
+      transporter.sendMail(options, function (err, info) {
+        if (err) {
+          console.log(err);
+          return;
+        } else {
+          console.log('sent: ' + info.response);
+        }
+      });
       res
         .status(200)
         .json({ message: 'success read matches', match: matchesTeam });
